@@ -1,0 +1,32 @@
+$palette: (
+    primary: (
+        background: #0f162d,
+        color-b: #ca59ff,
+        color-c: #6c7cff,
+        color-d: #2affff,
+        color-e: #fff629,
+    ),
+    secondary: (
+        background: #272d42,
+        main-contrast: #ffffff,
+        contrast-b: #000000,
+    )
+);
+
+
+@function get-color($color-branch, $color){
+    @if map-has-key($palette, $color-branch){
+        $color-branch: map-get($palette, $color-branch);
+
+        @if map-has-key($color-branch,$color){
+            $color: map-get($color-branch,$color);
+            @return $color;
+        }
+
+        @warn "unknown color `#{$color}` in color branch";
+        @return null;
+    }
+
+    @warn "unknown color branch `#{$color-branch}` in palette";
+    @return null;
+}
